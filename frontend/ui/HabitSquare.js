@@ -14,7 +14,7 @@ export class HabitSquare extends EventTarget {
 }
 
 const createElement = (title, done) => {
-  const element = document.createElement("span");
+  const element = document.createElement("button");
   element.classList.add("habit-square");
   if (done) {
     element.classList.add("habit-done");
