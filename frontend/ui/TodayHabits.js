@@ -11,17 +11,25 @@ export class TodayHabits {
     this.refresh();
   }
 
+  toggle = (event) => {
+    const habitSquare = event.currentTarget;
+    this.toggleDone(habitSquare.id, habitSquare.done);
+  };
+
   async refresh() {
     try {
       this.todayHabits = await getTodayHabits();
+      this.habitsSquare.forEach((habitSquare) =>
+        habitSquare.removeEventListener("toggle", this.toggle)
+      );
       this.render();
     } catch {
       alert("impossible to refresh");
     }
   }
 
-  async toggle(id, done) {
-    console.log("toggle");
+  async toggleDone(id, done) {
+    console.log("toggleDone");
     try {
       await updateHabitDone(id, !done);
       this.refresh();
@@ -35,11 +43,7 @@ export class TodayHabits {
 
     this.habitsSquare = this.todayHabits.map((habit) => {
       const habitSquare = new HabitSquare(habit.id, habit.title, habit.done);
-      habitSquare.addEventListener("toggle", () => {
-        console.log("event");
-        this.toggle(habitSquare.id, habitSquare.done);
-      });
-
+      habitSquare.addEventListener("toggle", this.toggle);
       this.element.appendChild(habitSquare.element);
     });
   }

@@ -15,3 +15,15 @@ export const updateHabitDone = (id, done) => {
     }),
   }).then((res) => res.json());
 };
+
+export const createHabit = (title) => {
+  return fetch(`${BASE_URL}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      title,
+    }),
+  }).then((res) => res.json());
+};
