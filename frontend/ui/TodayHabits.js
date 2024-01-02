@@ -12,15 +12,22 @@ export class TodayHabits {
   }
 
   async refresh() {
-    console.log("Refreshing UI");
-    this.todayHabits = await getTodayHabits();
-    this.render();
+    try {
+      this.todayHabits = await getTodayHabits();
+      this.render();
+    } catch {
+      alert("impossible to refresh");
+    }
   }
 
   async toggle(id, done) {
     console.log("toggle");
-    await updateHabitDone(id, !done);
-    this.refresh();
+    try {
+      await updateHabitDone(id, !done);
+      this.refresh();
+    } catch {
+      alert("Impossible to update habits");
+    }
   }
 
   async render() {
