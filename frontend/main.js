@@ -90,6 +90,7 @@ class TodayHabits {
   }
 
   async toggle(id, done) {
+    console.log("toggle");
     await updateHabitDone(id, !done);
     this.refresh();
   }
@@ -100,6 +101,7 @@ class TodayHabits {
     this.habitsSquare = this.todayHabits.map((habit) => {
       const habitSquare = new HabitSquare(habit.id, habit.title, habit.done);
       habitSquare.addEventListener("toggle", () => {
+        console.log("event");
         this.toggle(habitSquare.id, habitSquare.done);
       });
 
