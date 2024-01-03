@@ -45,6 +45,7 @@ export class TodayHabits {
       const habitSquare = new HabitSquare(habit.id, habit.title, habit.done);
       habitSquare.addEventListener("toggle", this.toggle);
       this.element.appendChild(habitSquare.element);
+      return habitSquare;
     });
   }
 }
