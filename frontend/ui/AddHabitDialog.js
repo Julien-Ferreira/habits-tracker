@@ -1,7 +1,20 @@
 import { createHabit } from "../api/habits-api";
+import { TodayHabits } from "./TodayHabits";
 
 export class AddHabitDialog {
-  constructor() {}
+  static instance;
+  constructor() {
+    if (AddHabitDialog.instance) {
+      throw new Error("Use addHabitDialog.instance() instead");
+    }
+  }
+
+  static getInstance() {
+    if (!AddHabitDialog.instance) {
+      AddHabitDialog.instance = new AddHabitDialog();
+    }
+    return AddHabitDialog.instance;
+  }
 
   _open = false;
 
@@ -24,11 +37,16 @@ export class AddHabitDialog {
     const form = e.currentTarget;
     const formData = new FormData(form);
     const title = formData.get("title");
+    console.log(title);
     try {
       await createHabit(title);
+      TodayHabits.getInstance().refresh();
     } catch {
       alert("Error, we can't create this habit");
     }
+
+    this.close();
+    this.reset();
   }
 
   get open() {
@@ -42,5 +60,13 @@ export class AddHabitDialog {
     } else {
       this.dialog.removeAttribute("open");
     }
+  }
+
+  close() {
+    this.open = false;
+  }
+
+  reset() {
+    this.form.reset();
   }
 }

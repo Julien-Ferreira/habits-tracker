@@ -2,7 +2,19 @@ import { getTodayHabits, updateHabitDone } from "../api/habits-api.js";
 import { HabitSquare } from "./HabitSquare.js";
 
 export class TodayHabits {
-  constructor() {}
+  static instance;
+  constructor() {
+    if (TodayHabits.instance) {
+      throw new Error("Use TodayHabits.instance() instead");
+    }
+  }
+
+  static getInstance() {
+    if (!TodayHabits.instance) {
+      TodayHabits.instance = new TodayHabits();
+    }
+    return TodayHabits.instance;
+  }
 
   habitsSquare = [];
 
