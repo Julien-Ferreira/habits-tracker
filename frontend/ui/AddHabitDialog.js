@@ -37,7 +37,6 @@ export class AddHabitDialog {
     const form = e.currentTarget;
     const formData = new FormData(form);
     const title = formData.get("title");
-    console.log(title);
     try {
       await createHabit(title);
       TodayHabits.getInstance().refresh();
