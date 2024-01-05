@@ -4,6 +4,10 @@ export const getTodayHabits = () => {
   return fetch(`${BASE_URL}/today`).then((res) => res.json());
 };
 
+export const getAllHabits = () => {
+  return fetch(`${BASE_URL}`).then((res) => res.json());
+};
+
 export const updateHabitDone = (id, done) => {
   return fetch(`${BASE_URL}/${id}`, {
     method: "PATCH",
