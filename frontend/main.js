@@ -9,5 +9,5 @@ todayHabits.init();
 const addHabitDialog = AddHabitDialog.getInstance();
 addHabitDialog.init();
 
-const habitHistoryDialog = new HabitHistoryDialog();
+const habitHistoryDialog = HabitHistoryDialog.getInstance();
 habitHistoryDialog.init();

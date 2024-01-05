@@ -1,9 +1,19 @@
-// import { getHabits } from "../../backend/habits.helper.js";
-
 import { getAllHabits } from "../api/habits-api.js";
 
 export class HabitHistoryDialog {
-  constructor() {}
+  static instance;
+  constructor() {
+    if (HabitHistoryDialog.instance) {
+      throw new Error("Use HabitHistoryDiablog.instance() instead");
+    }
+  }
+
+  static getInstance() {
+    if (!HabitHistoryDialog.instance) {
+      HabitHistoryDialog.instance = new HabitHistoryDialog();
+    }
+    return HabitHistoryDialog.instance;
+  }
 
   _open = false;
 
@@ -38,12 +48,17 @@ export class HabitHistoryDialog {
   async render() {
     console.log("render !!!");
     const habits = await getAllHabits();
-    const today = new Date().toISOString().slice(0, 10);
-    const dateRange = habits.find(date => )
-
+    const lowestDate = getLowestDate(habits);
+    console.log(lowestDate);
   }
 
   close() {
     this.open = false;
   }
 }
+
+const getLowestDate = (habits) => {
+  return habits.reduce((acc, habit) => {
+    return [...acc, Object.keys(habit.daysDone)];
+  }, []);
+};
