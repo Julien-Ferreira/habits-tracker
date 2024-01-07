@@ -49,7 +49,8 @@ export class HabitHistoryDialog {
     console.log("render !!!");
     const habits = await getAllHabits();
     const lowestDate = getLowestDate(habits);
-    console.log(lowestDate);
+    const dateRange = getDateRange(lowestDate);
+    console.log(dateRange);
   }
 
   close() {
@@ -58,7 +59,16 @@ export class HabitHistoryDialog {
 }
 
 const getLowestDate = (habits) => {
-  return habits.reduce((acc, habit) => {
-    return [...acc, Object.keys(habit.daysDone)];
-  }, []);
+  return habits
+    .reduce((acc, habit) => {
+      return [...acc, Object.keys(habit.daysDone)];
+    }, [])
+    .map((date) => new Date(date))
+    .sort((a, b) => a - b)[0];
+};
+
+const getDateRange = (date) => {
+  // const today = new Date().toISOString().slice(0, 10);
+
+  console.log(date);
 };
