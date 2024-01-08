@@ -85,9 +85,9 @@ const createTableRow = (habits, dates) => {
 
     dates.forEach((date) => {
       const dateCell = document.createElement("td");
-      const doneDays = habit.doneDays[date];
+      const doneDays = habit.daysDone[date];
       dateCell.textContent = doneDays ? "✅" : "❌";
-      row.appendChild(cell);
+      row.appendChild(dateCell);
     });
 
     return row;
