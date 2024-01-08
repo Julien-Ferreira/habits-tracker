@@ -58,15 +58,6 @@ export class HabitHistoryDialog {
   }
 }
 
-// const getLowestDate = (habits) => {
-//   return habits
-//     .reduce((acc, habit) => {
-//       return [...acc, Object.keys(habit.daysDone)];
-//     }, [])
-//     .map((date) => new Date(date))
-//     .sort((a, b) => a - b)[0];
-// };
-
 const getLowestDate = (habits) => {
   return habits
     .reduce((acc, habit) => {
