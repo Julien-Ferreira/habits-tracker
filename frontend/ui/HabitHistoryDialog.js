@@ -58,17 +58,29 @@ export class HabitHistoryDialog {
   }
 }
 
+// const getLowestDate = (habits) => {
+//   return habits
+//     .reduce((acc, habit) => {
+//       return [...acc, Object.keys(habit.daysDone)];
+//     }, [])
+//     .map((date) => new Date(date))
+//     .sort((a, b) => a - b)[0];
+// };
+
 const getLowestDate = (habits) => {
   return habits
     .reduce((acc, habit) => {
-      return [...acc, Object.keys(habit.daysDone)];
+      return [...acc, ...Object.keys(habit.daysDone)];
     }, [])
     .map((date) => new Date(date))
     .sort((a, b) => a - b)[0];
 };
 
-const getDateRange = (date) => {
-  // const today = new Date().toISOString().slice(0, 10);
-
-  console.log(date);
+const getDateRange = (lowestDate) => {
+  const diff = Math.ceil(new Date() - lowestDate) / (1000 * 60 * 60 * 25);
+  return Array.from({ length: diff + 1 }).map((_, index) => {
+    const date = new Date(lowestDate);
+    date.setDate(date.getDate() + index);
+    return date.toISOString().split("T")[0];
+  });
 };
