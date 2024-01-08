@@ -20,6 +20,7 @@ export class HabitHistoryDialog {
   init() {
     this.trigger = document.querySelector("#open-history");
     this.dialog = document.querySelector("#habits-history-dialog");
+    this.table = document.querySelector("table-wrapper");
 
     this.trigger.addEventListener("click", () => {
       this.open = true;
@@ -40,23 +41,24 @@ export class HabitHistoryDialog {
     }
   }
 
-  // async refresh() {
-  //   const database = await getHabits();
-  //   return database;
-  // }
-
   async render() {
     console.log("render !!!");
     const habits = await getAllHabits();
     const lowestDate = getLowestDate(habits);
     const dateRange = getDateRange(lowestDate);
-    console.log(dateRange);
+    const table = document.createElement("table");
+    this.table.appendChild(table);
   }
 
   close() {
     this.open = false;
   }
 }
+
+const createTableHeader = (dates) => {
+  const headerRow = document.createElement("tr");
+  const headerCeil = document.createElement("th");
+};
 
 const getLowestDate = (habits) => {
   return habits
