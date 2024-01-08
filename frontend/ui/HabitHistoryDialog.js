@@ -20,7 +20,7 @@ export class HabitHistoryDialog {
   init() {
     this.trigger = document.querySelector("#open-history");
     this.dialog = document.querySelector("#habits-history-dialog");
-    this.table = document.querySelector("table-wrapper");
+    this.tableWrapper = document.querySelector("#table-wrapper");
 
     this.trigger.addEventListener("click", () => {
       this.open = true;
@@ -47,7 +47,13 @@ export class HabitHistoryDialog {
     const lowestDate = getLowestDate(habits);
     const dateRange = getDateRange(lowestDate);
     const table = document.createElement("table");
-    this.table.appendChild(table);
+    table.appendChild(createTableHeader(dateRange));
+    createTableRow(habits, dateRange).forEach((row) => {
+      table.appendChild(row);
+    });
+
+    this.tableWrapper.innerText = "";
+    this.tableWrapper.appendChild(table);
   }
 
   close() {
@@ -58,6 +64,34 @@ export class HabitHistoryDialog {
 const createTableHeader = (dates) => {
   const headerRow = document.createElement("tr");
   const headerCeil = document.createElement("th");
+  headerCeil.textContent = "Habit";
+  headerRow.appendChild(headerCeil);
+
+  dates.forEach((date) => {
+    const dateCeil = document.createElement("th");
+    dateCeil.textContent = date;
+    headerRow.appendChild(dateCeil);
+  });
+
+  return headerRow;
+};
+
+const createTableRow = (habits, dates) => {
+  return habits.map((habit) => {
+    const row = document.createElement("tr");
+    const cell = document.createElement("td");
+    cell.innerText = habit.title;
+    row.appendChild(cell);
+
+    dates.forEach((date) => {
+      const dateCell = document.createElement("td");
+      const doneDays = habit.doneDays[date];
+      dateCell.textContent = doneDays ? "✅" : "❌";
+      row.appendChild(cell);
+    });
+
+    return row;
+  });
 };
 
 const getLowestDate = (habits) => {
