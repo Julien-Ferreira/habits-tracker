@@ -3,6 +3,7 @@ import {
   getHabits,
   getTodayHabits,
   updateHabit,
+  deleteHabit,
 } from "../habits.helper.js";
 
 export async function habitsRoutes(fastify) {
@@ -48,6 +49,25 @@ export async function habitsRoutes(fastify) {
 
     const newHabit = await addHabits(body.title);
     return newHabit;
+  });
+
+  fastify.delete("/:habitId", async (request, reply) => {
+    const habitId = Number(request.params.habitId);
+
+    if (!habitId || Number.isNaN(habitId)) {
+      reply.code(400).send({
+        error: "habitId is invalid",
+      });
+    }
+
+    try {
+      const deleteHab = await deleteHabit(habitId);
+      return deleteHab;
+    } catch (e) {
+      reply.code(400).send({
+        error: e.message,
+      });
+    }
   });
 
   fastify.patch("/:habitId", async (request, reply) => {
