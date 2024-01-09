@@ -29,12 +29,12 @@ export class DeleteHabit {
 
   async render() {
     const habit = await getAllHabits();
-    const titleButton = this.habitsButton(habit);
+    const titleButton = this.deleteHabitButton(habit);
 
     this.dialog.appendChild(titleButton);
   }
 
-  async habitsButton(habits) {
+  async deleteHabitButton(habits) {
     const wrapper = document.querySelector("#delete-habit-wrapper");
     wrapper.innerText = "";
     habits.forEach((habit) => {
