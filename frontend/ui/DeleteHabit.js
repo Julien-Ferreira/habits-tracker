@@ -1,3 +1,5 @@
+import { getAllHabits } from "../api/habits-api";
+
 export class DeleteHabit {
   static method;
   constructor() {
@@ -24,7 +26,13 @@ export class DeleteHabit {
     });
   }
 
-  render() {}
+  async render() {
+    const habit = await getAllHabits();
+    const titleButton = habitsButton(habit);
+
+    this.dialog.appendChild(titleButton);
+    return titleButton;
+  }
 
   get open() {
     return this._open;
@@ -40,3 +48,21 @@ export class DeleteHabit {
     }
   }
 }
+
+const habitsButton = (habits) => {
+  const wrapper = document.querySelector("#delete-habit-wrapper");
+  wrapper.innerText = "";
+  habits.forEach((habit) => {
+    const button = document.createElement("button");
+    const title = createTitleElement(habit.title);
+    button.appendChild(title);
+    wrapper.appendChild(button);
+  });
+  return wrapper;
+};
+
+const createTitleElement = (title) => {
+  const titleSpan = document.createElement("span");
+  titleSpan.innerText = title;
+  return titleSpan;
+};
