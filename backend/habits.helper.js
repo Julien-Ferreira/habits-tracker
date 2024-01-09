@@ -50,6 +50,18 @@ export const addHabits = async (title) => {
   return newHabit;
 };
 
+export const deleteHabit = async (habitId) => {
+  const habits = await getHabits();
+  const toDeleteHabits = habits.filter((habit) => habit.id !== habitId);
+
+  if (!toDeleteHabits) {
+    throw new Error("HabitId is invalid");
+  }
+
+  await writeDatabase({ habits });
+  return toDeleteHabits;
+};
+
 export const updateHabit = async (habitId, done) => {
   const habits = await getHabits();
   const toEditHabits = habits.find((n) => n.id === habitId);

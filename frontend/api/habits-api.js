@@ -20,6 +20,18 @@ export const updateHabitDone = (id, done) => {
   }).then((res) => res.json());
 };
 
+export const deleteHabit = (id, done) => {
+  return fetch(`${BASE_URL}/${id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      done,
+    }),
+  }).then((res) => res.json());
+};
+
 export const createHabit = (title) => {
   return fetch(`${BASE_URL}`, {
     method: "POST",

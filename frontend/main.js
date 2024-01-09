@@ -1,5 +1,6 @@
 import "./style.css";
 import { AddHabitDialog } from "./ui/AddHabitDialog";
+import { DeleteHabit } from "./ui/DeleteHabit";
 import { HabitHistoryDialog } from "./ui/HabitHistoryDialog";
 import { TodayHabits } from "./ui/TodayHabits";
 
@@ -11,3 +12,6 @@ addHabitDialog.init();
 
 const habitHistoryDialog = HabitHistoryDialog.getInstance();
 habitHistoryDialog.init();
+
+const deleteHabitDialog = DeleteHabit.getInstance();
+deleteHabitDialog.init();
