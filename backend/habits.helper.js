@@ -58,7 +58,7 @@ export const deleteHabit = async (habitId) => {
     throw new Error("HabitId is invalid");
   }
 
-  await writeDatabase({ habits });
+  await writeDatabase({ habits: toDeleteHabits });
   return toDeleteHabits;
 };
 

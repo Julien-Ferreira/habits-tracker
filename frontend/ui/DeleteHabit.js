@@ -24,6 +24,8 @@ export class DeleteHabit {
     });
   }
 
+  render() {}
+
   get open() {
     return this._open;
   }
