@@ -56,6 +56,7 @@ export class TodayHabits {
     this.habitsSquare = this.todayHabits.map((habit) => {
       const habitSquare = new HabitSquare(habit.id, habit.title, habit.done);
       habitSquare.addEventListener("toggle", this.toggle);
+
       this.element.appendChild(habitSquare.element);
       return habitSquare;
     });
