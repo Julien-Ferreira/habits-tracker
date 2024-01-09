@@ -1,4 +1,4 @@
-import { getAllHabits } from "../api/habits-api";
+import { deleteHabit, getAllHabits } from "../api/habits-api";
 
 export class DeleteHabit {
   static method;
@@ -28,10 +28,30 @@ export class DeleteHabit {
 
   async render() {
     const habit = await getAllHabits();
-    const titleButton = habitsButton(habit);
+    const titleButton = this.habitsButton(habit);
 
     this.dialog.appendChild(titleButton);
-    return titleButton;
+  }
+
+  async habitsButton(habits) {
+    const wrapper = document.querySelector("#delete-habit-wrapper");
+    wrapper.innerText = "";
+    habits.forEach((habit) => {
+      const button = document.createElement("button");
+      const title = createTitleElement(habit.title);
+      button.appendChild(title);
+      wrapper.appendChild(button);
+      button.addEventListener("click", () => {
+        const confirmation = window.confirm("Do you want delete this habit ?");
+
+        if (confirmation) {
+          deleteHabit(habit.id);
+          this.render();
+        } else {
+          return;
+        }
+      });
+    });
   }
 
   get open() {
@@ -48,18 +68,6 @@ export class DeleteHabit {
     }
   }
 }
-
-const habitsButton = (habits) => {
-  const wrapper = document.querySelector("#delete-habit-wrapper");
-  wrapper.innerText = "";
-  habits.forEach((habit) => {
-    const button = document.createElement("button");
-    const title = createTitleElement(habit.title);
-    button.appendChild(title);
-    wrapper.appendChild(button);
-  });
-  return wrapper;
-};
 
 const createTitleElement = (title) => {
   const titleSpan = document.createElement("span");
