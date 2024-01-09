@@ -1,4 +1,5 @@
 import { deleteHabit, getAllHabits } from "../api/habits-api";
+import { TodayHabits } from "./TodayHabits";
 
 export class DeleteHabit {
   static method;
@@ -41,15 +42,17 @@ export class DeleteHabit {
       const title = createTitleElement(habit.title);
       button.appendChild(title);
       wrapper.appendChild(button);
-      button.addEventListener("click", () => {
+      button.addEventListener("click", async () => {
         const confirmation = window.confirm("Do you want delete this habit ?");
 
         if (confirmation) {
-          deleteHabit(habit.id);
+          await deleteHabit(habit.id);
           this.render();
+          TodayHabits.getInstance().refresh();
         } else {
           return;
         }
+        this.close();
       });
     });
   }
@@ -66,6 +69,10 @@ export class DeleteHabit {
     } else {
       this.dialog.removeAttribute("open", "");
     }
+  }
+
+  close() {
+    this.open = false;
   }
 }
 
